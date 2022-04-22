@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { Redirect, Route, Switch, useHistory, useLocation } from "react-router-dom";
-
-import Dashboard from "../dashboard/Dashboard";
+import {
+  Redirect,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 import NotFound from "./NotFound";
 import useQuery from "../utils/useQuery";
-import { changeReservationStatus, listReservations } from "../utils/api";
 import { today } from "../utils/date-time";
+import { changeReservationStatus, listReservations, listTables } from "../utils/api";
+import Dashboard from "../dashboard/Dashboard";
+import NewTable from "../tables/NewTable";
+import SeatReservation from "../reservations/SeatReservation";
+import Search from "../search/Search";
+import EditReservation from "../reservations/EditReservation";
 import CreateReservation from "../reservations/CreateReservation";
 
-/**
- * Defines all the routes for the application.
- *
- * You will need to make changes to this file.
- *
- * @returns {JSX.Element}
- */
+
+/** defines all the routes for the application */
 function Routes() {
   const [reservations, setReservations] = useState([]);
+  const [tables, setTables] = useState([]);
   const [date, setDate] = useState("");
+  const [tablesError, setTablesError] = useState(null);
   const [reservationsError, setReservationsError] = useState(null);
   const query = useQuery();
   const history = useHistory();
@@ -34,16 +40,18 @@ function Routes() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     function loadDashboard() {
       const abortController = new AbortController();
       setReservationsError(null);
+      setTablesError(null);
       listReservations({ date }, abortController.signal)
         .then(setReservations)
         .catch(setReservationsError);
 
-      
+      listTables(abortController.signal).then(setTables).catch(setTablesError);
+
       return () => abortController.abort();
     }
     if (date) loadDashboard();
@@ -65,33 +73,63 @@ function Routes() {
 
     return () => abortController.abort();
   }
- 
 
+
+  /** retursn the components and the paths */
   return (
-
     <Switch>
       <Route exact={true} path="/">
-        <Redirect to={"/dashboard"} />
+        <Redirect to={`/dashboard`} />
       </Route>
 
       <Route exact={true} path="/reservations">
-        <Redirect to={"/dashboard"} />
+        <Redirect to={`/dashboard`} />
       </Route>
+
 
       <Route path="/reservations/new">
         <CreateReservation 
+          // loadDashboard={loadDashboard} 
           reservations={reservations}
-          setReservations={setReservations} />
+          setReservations={setReservations}
+        />
       </Route>
 
+
+      <Route path="/reservations/:reservation_id/edit">
+        <EditReservation 
+          reservations={reservations}
+          setReservations={setReservations}
+        />
+      </Route>
+
+      <Route path="/reservations/:reservation_id/seat">
+        <SeatReservation 
+          tables={tables} 
+          setTables={setTables}
+          reservations={reservations}
+          setReservations={setReservations}
+        />
+      </Route>
+
+      <Route path="/tables/new">
+        <NewTable 
+        />
+      </Route>
 
       <Route path="/dashboard">
         <Dashboard
           date={date}
           reservations={reservations}
           reservationsError={reservationsError}
+          tables={tables}
+          tablesError={tablesError}
           handleCancel={handleCancel}
         />
+      </Route>
+
+      <Route path="/search">
+        <Search />
       </Route>
 
       <Route>
@@ -100,5 +138,6 @@ function Routes() {
     </Switch>
   );
 }
+
 
 export default Routes;

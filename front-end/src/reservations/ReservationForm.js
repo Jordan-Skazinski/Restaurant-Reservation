@@ -153,7 +153,7 @@ export default function ResForm({
           </div>
   
           <button
-            className="btn btn-outline-dark m-1"
+            className="btn btn-outline-light m-1"
             onClick={(e) => {
               e.preventDefault();
               handleCancel();
@@ -162,7 +162,7 @@ export default function ResForm({
           >
             Cancel
           </button>
-          <button className="btn btn-outline-dark" type="submit">
+          <button className="btn btn-outline-light" type="submit">
             Submit
           </button>
         </form>

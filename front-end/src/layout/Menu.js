@@ -1,61 +1,87 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 
 /**
  * Defines the menu for this application.
- *
  * @returns {JSX.Element}
  */
 
 function Menu() {
   return (
-    <nav className="navbar navbar-dark align-items-start p-0">
-      <div className="container-fluid d-flex flex-column p-0">
-        <Link
-          className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
-          to="/"
-        >
-          <div className="sidebar-brand-text mx-3">
-            <span>Periodic Tables</span>
-          </div>
-        </Link>
-        <hr className="sidebar-divider my-0" />
-        <ul className="nav navbar-nav text-light" id="accordionSidebar">
-          <li className="nav-item">
-            <Link className="nav-link" to="/dashboard">
-              <span className="oi oi-dashboard" />
-              &nbsp;Dashboard
-            </Link>
+    <div>
+      <nav
+        className="nav navbar-nav mt-3"
+        style={{ position: "fixed", zIndex: "2" }}
+      >
+        <ul className="nav navbar-nav bg-dark" style={{ backgroundColor: "#FFB93A", fontFamily: "Courier" }}>
+          <li className="nav-item p-1 ">
+            <button
+              type="button"
+              className="btn text-white"
+              data-toggle="tooltip" 
+              data-placement="bottom"
+              title="Home"
+            >
+              Home
+              <Link className="nav-link " to="/">
+                <span className="material-icons" style={{ color: "#d4fcfa" }}>
+                  home
+                </span>
+              </Link>
+            </button>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/search">
-              <span className="oi oi-magnifying-glass" />
-              &nbsp;Search
-            </Link>
+
+          <li className="nav-item p-1">
+            <button
+              type="button"
+              className="btn text-white"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Search"
+            >
+              Search
+              <Link className="nav-link " to="/search">
+                <span className="material-icons" style={{ color: "#d4fcfa" }}>
+                  search
+                </span>
+              </Link>
+            </button>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/reservations/new">
-              <span className="oi oi-plus" />
-              &nbsp;New Reservation
-            </Link>
+          <li className="nav-item p-1">
+            <button
+              type="button"
+              className="btn text-white"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="New Reservation"
+            >
+              Reserve
+              <Link className="nav-link " to="/reservations/new">
+                <span className="material-icons mr-2" style={{ color: "#d4fcfa" }}>
+                  local_dining
+                </span>
+              </Link>
+            </button>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/tables/new">
-              <span className="oi oi-layers" />
-              &nbsp;New Table
-            </Link>
+          <li className="nav-item p-1">
+            <button
+              type="button"
+              className="btn text-white"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="New Table"
+            >
+              Table
+              <Link className="nav-link " to="/tables/new">
+                <span className="material-icons" style={{ color: "#d4fcfa" }}>
+                  table_restaurant
+                </span>
+              </Link>
+            </button>
           </li>
         </ul>
-        <div className="text-center d-none d-md-inline">
-          <button
-            className="btn rounded-circle border-0"
-            id="sidebarToggle"
-            type="button"
-          />
-        </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }
 

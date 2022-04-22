@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { listReservations } from "../utils/api";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { previous, next, today } from "../utils/date-time";
 import ErrorAlert from "../layout/ErrorAlert";
+import TableRow from "./TableRow";
 import ReservationRow from "./ReservationRow";
+
 
 /**
  * Defines the dashboard page.
- * @param date
- *  the date for which the user wants to view reservations.
- * @returns {JSX.Element}
  */
-function Dashboard({ date }) {
-  const [reservations, setReservations] = useState([]);
-  const [reservationsError, setReservationsError] = useState(null);
+function Dashboard({
+  date,
+  reservations,
+  reservationsError,
+  tables,
+  tablesError,
+}) {
 
-  useEffect(loadDashboard, [date]);
+  const history = useHistory();
 
+
+  /** iterates each reservation and returns a 'ReservationRow' */
   const reservationsJSX = () => {
     return reservations.map((reservation) => (
       <ReservationRow
@@ -24,22 +30,45 @@ function Dashboard({ date }) {
     ));
   };
 
-  function loadDashboard() {
-    const abortController = new AbortController();
-    setReservationsError(null);
-    listReservations({ date }, abortController.signal)
-      .then(setReservations)
-      .catch(setReservationsError);
-    return () => abortController.abort();
-  }
 
+  /** iterates each table and returns a 'TableRow' */
+  const tablesJSX = () => {
+    return tables.map((table) => (
+      <TableRow
+        key={table.table_id}
+        table={table}
+      />
+    ));
+  };
+
+
+   /** uses:
+     * previous() to set the reservations' list date to be the previous day
+     * next() to set the reservations' list date to be the following day
+     * today() to set reservation's list date to current day
+    */
   function handleClick({ target }) {
-     
-    
+    let newDate;
+    let useDate;
 
+    if (!date) {
+      useDate = today();
+    } else {
+      useDate = date;
+    }
+
+    if (target.name === "previous") {
+      newDate = previous(useDate);
+    } else if (target.name === "next") {
+      newDate = next(useDate);
+    } else {
+      newDate = today();
+    }
+
+    history.push(`/dashboard?date=${newDate}`);
   }
 
-  
+
   return (
     <main>
       <div
@@ -115,14 +144,29 @@ function Dashboard({ date }) {
           <br />
           <br />
 
-          
+          <h4 className="mb-4 pl-1 font-weight-bold">Tables</h4>
 
-          
+          <ErrorAlert error={tablesError} />
 
+          <table className="table table-hover m-1 text-nowrap mb-4">
+            <thead className="thead-dark">
+              <tr className="text-center">
+                <th scope="col">Table ID</th>
+                <th scope="col">Table Name</th>
+                <th scope="col">Capacity</th>
+                <th scope="col">Status</th>
+                <th scope="col">Reservation ID</th>
+                <th scope="col">Finish</th>
+              </tr>
+            </thead>
+            <tbody>{tablesJSX()}</tbody>
+          </table>
 
         </div>
       </div>
     </main>
   );
 }
+
+
 export default Dashboard;
