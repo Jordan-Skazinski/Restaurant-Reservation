@@ -1,12 +1,12 @@
 
 exports.up = function(knex) {
     return knex.schema.table("reservations", (table) => {
-        table.string("first_name").notNullable();
-        table.string("last_name").notNullable();
-        table.string("mobile_number").notNullable();
-        table.date("reservation_date").notNullable();
-        table.time("reservation_time").notNullable();
-        table.integer("people").notNullable();
+        table.string("first_name")
+        table.string("last_name")
+        table.string("mobile_number")
+        table.date("reservation_date")
+        table.time("reservation_time")
+        table.integer("people")
         table.string("status");
 
       });
@@ -15,7 +15,7 @@ exports.up = function(knex) {
     
 
 exports.down = function(knex) {
-return knex.schema.table("products", (table) => {
+return knex.schema.table("reservations", (table) => {
     table.dropColumn("first_name");
     table.dropColumn("last_name");
     table.dropColumn("mobile_number");
