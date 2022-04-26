@@ -1,6 +1,8 @@
 Restaurant Reservation App
 Description
+
 For this project, I created an application for restaurants to allows users to create, update, view, delete reservations, as well as seat them at varius tables within the restaurant.
+
 
 Technologies & Tools
  React
@@ -14,7 +16,9 @@ Technologies & Tools
  HTML
  JavaScript
  RESTful APIs
-Run Locally
+ 
+ 
+To Run Locally
  Fork & Clone the repostory
  Run npm install
  Run npm run start:dev to start
