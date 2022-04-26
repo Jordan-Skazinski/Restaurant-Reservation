@@ -25,7 +25,7 @@ function Menu() {
               Home
               <Link className="nav-link " to="/">
                 <span className="material-icons" style={{ color: "#FF5733" }}>
-                  home
+                  
                 </span>
               </Link>
             </button>
@@ -42,7 +42,7 @@ function Menu() {
               Search
               <Link className="nav-link " to="/search">
                 <span className="material-icons" style={{ color: "#FF5733" }}>
-                  search
+                  
                 </span>
               </Link>
             </button>
@@ -57,9 +57,9 @@ function Menu() {
             >
               Reserve
               <Link className="nav-link " to="/reservations/new">
-                <span className="material-icons mr-2" style={{ color: "#FF5733" }}>
-                  local_dining
-                </span>
+                <span className="material-icons mr-2" style={{ color: "#FF5733" }} />
+                  
+              
               </Link>
             </button>
           </li>
@@ -74,7 +74,7 @@ function Menu() {
               Table
               <Link className="nav-link " to="/tables/new">
                 <span className="material-icons" style={{ color: "#FF5733" }}>
-                  table_restaurant
+                  
                 </span>
               </Link>
             </button>

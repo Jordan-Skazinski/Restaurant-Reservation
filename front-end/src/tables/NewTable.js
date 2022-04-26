@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import ErrorAlert from "../layout/ErrorAlert";
 import { createTable } from "../utils/api";
 
 
@@ -70,7 +69,7 @@ export default function NewTable({ loadDashboard }) {
       </h2>
       <div className="d-flex justify-content-center mt-4">
         <form className="font-weight-bold mt-2 w-75">
-           <ErrorAlert error={error} /> 
+
 
           <label htmlFor="table_name">Table Name&nbsp;</label>
           <input
