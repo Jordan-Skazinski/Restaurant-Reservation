@@ -1,11 +1,10 @@
 # Restaurant Reservation
 
-Description
 
 This application is for restaurants to allows users to create, update, view, delete reservations, as well as seat them at varius tables within the restaurant.
 
 
-Technologies & Tools
+# Technologies & Tools
  * React
  * React hooks
  * React router
