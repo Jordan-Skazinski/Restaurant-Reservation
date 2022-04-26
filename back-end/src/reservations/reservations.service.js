@@ -18,22 +18,22 @@ function read(reservation_id) {
     .first();
 }
 
-/** updates reservation with the given reservation_id. */
+// updates reservation with the given reservation_id. 
 function update(reservation_id, status) {
   return knex(tableName)
-    .where({ reservation_id: reservation_id })
+    .where({ reservation_id })
     .update({ status: status });
 }
 
-/** edits reservation with the given reservation_id. */
+// edits reservation with the given reservation_id. 
 function edit(reservation_id, reservation) {
   return knex(tableName)
-    .where({ reservation_id: reservation_id })
+    .where({ reservation_id })
     .update({ ...reservation })
     .returning("*");
 }
 
-/** lists all reservations with the given date or mobile number. */
+// lists all reservations with the given date or mobile number. 
 function list(date, mobile_number) {
   if (date) {
     return knex(tableName)

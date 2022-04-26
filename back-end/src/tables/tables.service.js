@@ -2,14 +2,14 @@ const knex = require("../db/connection");
 
 const tableName = "tables";
 
-/** creates a new table (row) */
+// creates a new table (row) 
 function create(table) {
   return knex(tableName)
     .insert(table)
     .returning("*");
 }
 
-/** reads a table given the table_id */
+// reads a table given the table_id 
 function read(table_id) {
   return knex(tableName)
     .select("*")
@@ -17,21 +17,21 @@ function read(table_id) {
     .first();
 }
 
-/** updates reservation status given the reservation_id */
+// updates reservation status given the reservation_id 
 function updateReservation(reservation_id, status) {
   return knex("reservations")
     .where({ reservation_id: reservation_id })
     .update({ status: status });
 }
 
-/** lists all tables. */
+// lists all tables. 
 function list() {
   return knex(tableName)
     .select("*");
 }
 
 
-/** reads reservation given the reservation_id. */
+// reads reservation given the reservation_id. 
 function readReservation(reservation_id) {
   return knex("reservations")
     .select("*")

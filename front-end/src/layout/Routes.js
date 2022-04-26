@@ -86,7 +86,9 @@ function Routes() {
         <Redirect to={`/dashboard`} />
       </Route>
 
-
+      {/* <Route path="/reservations/new">
+        <NewReservation loadDashboard={loadDashboard} />
+      </Route> */}
       <Route path="/reservations/new">
         <CreateReservation 
           // loadDashboard={loadDashboard} 
@@ -95,7 +97,9 @@ function Routes() {
         />
       </Route>
 
-
+      {/* <Route path="/reservations/:reservation_id/edit">
+        <NewReservation loadDashboard={loadDashboard} edit={true} />
+      </Route> */}
       <Route path="/reservations/:reservation_id/edit">
         <EditReservation 
           reservations={reservations}

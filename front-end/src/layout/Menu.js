@@ -24,7 +24,7 @@ function Menu() {
             >
               Home
               <Link className="nav-link " to="/">
-                <span className="material-icons" style={{ color: "#d4fcfa" }}>
+                <span className="material-icons" style={{ color: "#FF5733" }}>
                   home
                 </span>
               </Link>
@@ -41,7 +41,7 @@ function Menu() {
             >
               Search
               <Link className="nav-link " to="/search">
-                <span className="material-icons" style={{ color: "#d4fcfa" }}>
+                <span className="material-icons" style={{ color: "#FF5733" }}>
                   search
                 </span>
               </Link>
@@ -57,7 +57,7 @@ function Menu() {
             >
               Reserve
               <Link className="nav-link " to="/reservations/new">
-                <span className="material-icons mr-2" style={{ color: "#d4fcfa" }}>
+                <span className="material-icons mr-2" style={{ color: "#FF5733" }}>
                   local_dining
                 </span>
               </Link>
@@ -73,13 +73,20 @@ function Menu() {
             >
               Table
               <Link className="nav-link " to="/tables/new">
-                <span className="material-icons" style={{ color: "#d4fcfa" }}>
+                <span className="material-icons" style={{ color: "#FF5733" }}>
                   table_restaurant
                 </span>
               </Link>
             </button>
           </li>
         </ul>
+        {/* <div className="text-center d-none d-md-inline">
+          <button
+            className="btn rounded-circle border-0"
+            id="sidebarToggle"
+            type="button"
+          />
+        </div> */}
       </nav>
     </div>
   );

@@ -2,11 +2,9 @@ const service = require("./tables.service");
 const asyncErrorBoundary = require(".././errors/asyncErrorBoundary");
 
 
-///// VALIDATORS /////
+//validation 
 
-/**
- * checks for a data object in the request
- */
+//checks for a data object in the request
 async function validateData(request, response, next) {
   if (!request.body.data) {
     return next({ status: 400, message: "Body must include a data object" });
@@ -15,9 +13,7 @@ async function validateData(request, response, next) {
   next();
 }
 
-/**
- * checks for required information in request body
- */
+//checks for required information in request body
 async function validateBody(request, response, next) {
   if (!request.body.data.table_name || request.body.data.table_name === "") {
     return next({ status: 400, message: "'table_name' field cannot be empty" });
@@ -49,9 +45,7 @@ async function validateBody(request, response, next) {
 }
 
 
-/**
- * checks that the reservation_id exists
- */
+//checks that the reservation_id exists
  async function validateReservationId(request, response, next) {
   const { reservation_id } = request.body.data;
 
@@ -77,9 +71,7 @@ async function validateBody(request, response, next) {
 }
 
 
-/**
- * checks if the given table id exists
- */
+//checks if the given table id exists
  async function validateTableId(request, response, next) {
   const { table_id } = request.params;
   const table = await service.read(table_id);
@@ -96,7 +88,7 @@ async function validateBody(request, response, next) {
   next();
 }
 
-/** makes sure that a table status is set to occupied before seating the table */
+// makes sure that a table status is set to occupied before seating the table 
 async function validateSeatedTable(request, response, next) {
   if (response.locals.table.status !== "occupied") {
     return next({ status: 400, message: "this table is not occupied" });
@@ -106,9 +98,7 @@ async function validateSeatedTable(request, response, next) {
 }
 
 
-/**
- * checks if table status and capacity are valid for the reservation to be seated
- */
+//checks if table status and capacity are valid for the reservation to be seated
  async function validateSeat(request, response, next) {
   if (response.locals.table.status === "occupied") {
     return next({
@@ -135,10 +125,10 @@ async function validateSeatedTable(request, response, next) {
 }
 
 
-///// HANDLERS /////
+//handlers
 
 
-
+//seats reservation_id at table and switches its status to occupied
 async function create(request, response) {
   if (request.body.data.reservation_id) {
     request.body.data.status = "occupied";
@@ -161,7 +151,7 @@ async function create(request, response) {
 }
 
 
-
+//updates the table
 async function update(request, response) {
   await service.occupy(
     response.locals.table.table_id,
@@ -175,7 +165,7 @@ async function update(request, response) {
   response.status(200).json({ data: { status: "seated" } });
 }
 
-
+//switches the tables status to finished and frees up the table
 async function destroy(request, response) {
   await service.updateReservation(
     response.locals.table.reservation_id,
