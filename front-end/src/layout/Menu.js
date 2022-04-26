@@ -22,10 +22,10 @@ function Menu() {
               data-placement="bottom"
               title="Home"
             >
-              Home
+              
               <Link className="nav-link " to="/">
                 <span className="material-icons" style={{ color: "#FF5733" }}>
-                  
+                  Home
                 </span>
               </Link>
             </button>
@@ -39,10 +39,10 @@ function Menu() {
               data-placement="bottom"
               title="Search"
             >
-              Search
+              
               <Link className="nav-link " to="/search">
                 <span className="material-icons" style={{ color: "#FF5733" }}>
-                  
+                  Search
                 </span>
               </Link>
             </button>
@@ -55,11 +55,11 @@ function Menu() {
               data-placement="bottom"
               title="New Reservation"
             >
-              Reserve
-              <Link className="nav-link " to="/reservations/new">
-                <span className="material-icons mr-2" style={{ color: "#FF5733" }} />
-                  
               
+              <Link className="nav-link " to="/reservations/new">
+                <span className="material-icons mr-2" style={{ color: "#FF5733" }}>
+                Reserve
+                </span>
               </Link>
             </button>
           </li>
@@ -71,10 +71,10 @@ function Menu() {
               data-placement="bottom"
               title="New Table"
             >
-              Table
+              
               <Link className="nav-link " to="/tables/new">
                 <span className="material-icons" style={{ color: "#FF5733" }}>
-                  
+                  Table
                 </span>
               </Link>
             </button>
