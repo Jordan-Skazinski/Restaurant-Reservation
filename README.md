@@ -1,4 +1,4 @@
-Restaurant Reservation App
+Restaurant Reservation
 Description
 
 For this project, I created an application for restaurants to allows users to create, update, view, delete reservations, as well as seat them at varius tables within the restaurant.
