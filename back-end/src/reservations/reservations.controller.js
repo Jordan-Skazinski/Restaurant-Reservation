@@ -2,10 +2,10 @@ const service = require("./reservations.service");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 
-///// VALIDATORS /////
+//Validation
 
 
-/** checks to ensure a request body is provided */
+// checks the request for data 
 async function validateData(request, response, next) {
   if (!request.body.data) {
     return next({ status: 400, message: "Body must include a data object" });
@@ -13,7 +13,7 @@ async function validateData(request, response, next) {
   next();
 }
 
-/** checks to ensure that any of the required fields are provided */
+// checks the fields to find missing ones
 async function validateBody(request, response, next) {
   const requiredFields = [
     "first_name",
@@ -23,7 +23,7 @@ async function validateBody(request, response, next) {
     "reservation_time",
     "people",
   ];
-
+  //sends back a status msg if one is missing
   for (const field of requiredFields) {
     if (
       !request.body.data.hasOwnProperty(field) ||
@@ -65,11 +65,7 @@ async function validateBody(request, response, next) {
   next();
 }
 
-/** checks to ensure that the reservation is:
-  * in the future
-  * on a day that the restaurant is open
-  * during the restaurant's open hours
-*/
+//checks the reservation date for valid entrys. Makeing sure its in the future, when the place is open, and that its not on a tuesday
 async function validateDate(request, response, next) {
   const reserveDate = new Date(
     `${request.body.data.reservation_date}T${request.body.data.reservation_time}:00.000`
@@ -125,7 +121,7 @@ async function validateDate(request, response, next) {
   next();
 }
 
-/** uses read() to return the data with the given reservation id in the request params */
+//checks the id useing read service to see if the reservation_id exists
 async function validateReservationId(request, response, next) {
   const { reservation_id } = request.params;
   const reservation = await service.read(Number(reservation_id));
@@ -139,7 +135,7 @@ async function validateReservationId(request, response, next) {
   next();
 }
 
-/** ensures that the reservation has a valid status */
+//checks the status of the reservation for validity
 async function validateUpdateBody(request, response, next) {
   if (!request.body.data.status) {
     return next({ status: 400, message: "body must include a status field" });
@@ -167,10 +163,10 @@ async function validateUpdateBody(request, response, next) {
 }
 
 
-///// HANDLERS /////
+//handlers
 
 
-/** lists reservations for a given date with or without a given phone number */
+//lists the reservations
 async function list(request, response) {
   const date = request.query.date;
   const mobile_number = request.query.mobile_number;
@@ -182,14 +178,14 @@ async function list(request, response) {
 }
 
 
-/** creates a new reservation, and returns it's data from the reservations list */
+//creates a new reservation and sends back the data with a 201 status
 async function create(request, response) {
   request.body.data.status = "booked";
   const res = await service.create(request.body.data);
   response.status(201).json({ data: res[0] });
 }
 
-/** updates a valid reservation */
+//updates a reservation
 async function update(request, response) {
   await service.update(
     response.locals.reservation.reservation_id,
@@ -199,7 +195,7 @@ async function update(request, response) {
   response.status(200).json({ data: { status: request.body.data.status } });
 }
 
-/** edits a valid reservation */
+//edits a reservation
 async function edit(request, response) {
   const res = await service.edit(
     response.locals.reservation.reservation_id,
@@ -208,7 +204,7 @@ async function edit(request, response) {
   response.status(200).json({ data: res[0] });
 }
 
-/** retrieves a given reservation */
+//reads a reservation
 async function read(request, response) {
   response.status(200).json({ data: response.locals.reservation });
 }
@@ -234,5 +230,8 @@ module.exports = {
     asyncErrorBoundary(validateDate),
     asyncErrorBoundary(edit),
   ],
-  read: [asyncErrorBoundary(validateReservationId), asyncErrorBoundary(read)],
+  read: [
+    asyncErrorBoundary(validateReservationId), 
+    asyncErrorBoundary(read)
+  ],
 };

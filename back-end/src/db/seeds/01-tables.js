@@ -2,7 +2,7 @@ exports.seed = function (knex) {
   return knex
     .raw("TRUNCATE TABLE tables RESTART IDENTITY CASCADE")
     .then(function () {
-      /** inserts all seed entries into the tables table */
+      /** Inserts the seeds for the tables */
       return knex("tables").insert([
         { table_name: "#1", capacity: 6, status: "free" },
         { table_name: "#2", capacity: 6, status: "free" },
