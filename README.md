@@ -25,7 +25,7 @@ This application is for restaurants to allows users to create, update, view, del
  
 # env. Variables
 
- 1. Backend: DATABASE_URL, DATABASE_URL_DEVELOPMENT, DATABASE_URL_TEST, DATABASE_URL_PREVIEW
+ 1. Backend: DATABASE_URL, DATABASE_URL_DEVELOPMENT, DATABASE_URL_TEST
  2. Frontend: REACT_APP_API_BASE_URL (NOTE: this does note process correctly with the Heroku website, so this has been hardcoded in the frontend api.js file at the top)
  
 # Connect to database
